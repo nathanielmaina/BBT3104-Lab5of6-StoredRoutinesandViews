@@ -2,8 +2,8 @@ services:
 
   mysql:
     image: mysql:8.3.0
-    hostname: mysql-8.3.0-bbt3104-lab4
-    container_name: mysql-8.3.0-bbt3104-lab4
+    hostname: mysql-8.3.0-bbt3104-lab5
+    container_name: mysql-8.3.0-bbt3104-lab5
     restart: always
     ports:
       - 3307:3306
@@ -24,8 +24,8 @@ services:
 
   mariadb:
     image: mariadb:11.5.2
-    hostname: mariadb-11.5.2-bbt3104-lab4
-    container_name: mariadb-11.5.2-bbt3104-lab4
+    hostname: mariadb-11.5.2-bbt3104-lab5
+    container_name: mariadb-11.5.2-bbt3104-lab5
     restart: always
     ports:
       - 3308:3306
@@ -44,8 +44,8 @@ services:
 
   postgres:
     image: postgres:16.2
-    hostname: postgres-16.2-bbt3104-lab4
-    container_name: postgres-16.2-bbt3104-lab4
+    hostname: postgres-16.2-bbt3104-lab5
+    container_name: postgres-16.2-bbt3104-lab5
     restart: always
     shm_size: 1g
     ports:
