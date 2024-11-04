@@ -1,0 +1,63 @@
+services:
+
+  mysql:
+    image: mysql:8.3.0
+    hostname: mysql-8.3.0-bbt3104-lab4
+    container_name: mysql-8.3.0-bbt3104-lab4
+    restart: always
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 5trathm0re
+    volumes:
+      # To store the server's configuration file in the host
+      - ./container-volumes/mysql/etc-mysql/my.cnf:/etc/mysql/my.cnf
+      # To store the server's data persistently in the host
+      - ./container-volumes/mysql/var-lib-mysql:/var/lib/mysql
+      # To run the SQL scripts used to create the required databases
+      - ./container-volumes/mysql/init-scripts:/docker-entrypoint-initdb.d/
+    command: >
+      /bin/bash -c "
+      chmod 644 /etc/mysql/my.cnf &&
+      exec docker-entrypoint.sh mysqld
+      "
+
+  mariadb:
+    image: mariadb:11.5.2
+    hostname: mariadb-11.5.2-bbt3104-lab4
+    container_name: mariadb-11.5.2-bbt3104-lab4
+    restart: always
+    ports:
+      - 3308:3306
+    environment:
+      MARIADB_ROOT_PASSWORD: 5trathm0re
+    volumes:
+      # To store the server's configuration file in the host
+      - ./container-volumes/mariadb/etc-mysql/my.cnf:/etc/mysql/my.cnf
+      # To store the server's data persistently in the host
+      - ./container-volumes/mariadb/var-lib-mysql:/var/lib/mysql
+    command: >
+      /bin/bash -c "
+      chmod 644 /etc/mysql/my.cnf &&
+      exec docker-entrypoint.sh mariadbd
+      "
+
+  postgres:
+    image: postgres:16.2
+    hostname: postgres-16.2-bbt3104-lab4
+    container_name: postgres-16.2-bbt3104-lab4
+    restart: always
+    shm_size: 1g
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 5trathm0re
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      # To store the server's configuration files (postgresql.conf and pg_hba.conf) in the host
+      - ./container-volumes/postgresql/etc-postgresql/postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./container-volumes/postgresql/etc-postgresql/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
+      # To store the server's data persistently in the host
+      - ./container-volumes/postgresql/var-lib-postgresql-data:/var/lib/postgresql/data
+    command: postgres -c 'config_file=/etc/postgresql/postgresql.conf'
