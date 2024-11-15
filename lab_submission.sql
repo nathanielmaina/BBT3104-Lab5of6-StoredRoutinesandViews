@@ -54,4 +54,4 @@ orderdetails ON products.productCode = products.productCode
 GROUP BY
 products.productCode, products.productName, products.productLine
 ORDER BY
-'Total Quantity Ordered' DESC;
+'Total QuantityOrdered'DESC;
